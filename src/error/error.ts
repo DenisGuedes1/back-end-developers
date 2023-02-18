@@ -6,18 +6,24 @@ class AppError extends Error {
   constructor(message: string, statusCode: number = 400) {
     super(message);
     this.statusCode = statusCode;
+    this.message = message;
   }
 }
-const errorHandler = (
-  err: Error,
+const handlreErrors = async (
+  error: Error,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  if (err instanceof AppError) {
-    return res.status(err.statusCode).json({ message: err.message });
+  if (error instanceof AppError) {
+    return res.status(error.statusCode).json({
+      message: error.message,
+    });
   }
-
-  console.error(err);
-  return res.status(500).json({ message: "Internal Server Error." });
+  console.log(error);
+  return res.status(500).json({
+    message: "Internal server error",
+  });
 };
+
+export { AppError, handlreErrors };

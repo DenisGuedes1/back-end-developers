@@ -13,5 +13,12 @@ interface IUser extends IuserRequest {
 
 type IUserRemovePassword = Omit<IuserRequest, "password">;
 type IUserResult = QueryResult<IUserRemovePassword>;
+type IUserResultNotPassword = QueryResult<IUserRemovePassword>;
 
-export { IuserRequest, IUser, IUserRemovePassword, IUserResult };
+export {
+  IuserRequest,
+  IUser,
+  IUserRemovePassword,
+  IUserResult,
+  IUserResultNotPassword,
+};
