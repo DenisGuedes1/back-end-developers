@@ -1,3 +1,4 @@
-yarn.lock
+node_modules
+*lock*
 anotacoes.txt
 .env
