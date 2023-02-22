@@ -2,7 +2,7 @@ import format from "pg-format";
 import { client } from "../../dataBase";
 import { IUserResultNotPassword } from "../../interfaces/users.interface";
 
-const getUseridService = async () => {
+const getAllUserService = async () => {
   const queryString: string = format(`
   SELECT 
   "id","name","email","admin",active
@@ -17,4 +17,4 @@ const getUseridService = async () => {
   return queryResult.rows;
 };
 
-export default getUseridService;
+export default getAllUserService;

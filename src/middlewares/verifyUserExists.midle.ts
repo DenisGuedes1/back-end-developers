@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { QueryConfig, QueryResult } from "pg";
+import { ZodTypeAny } from "zod";
 import client from "../dataBase/config";
 import { AppError } from "../error/error";
-
 const verifyExistsuserMidle = async (
   req: Request,
   resp: Response,
@@ -29,4 +29,13 @@ const verifyExistsuserMidle = async (
   }
   return next();
 };
-export default verifyExistsuserMidle;
+const VerifyDataLoginFromUser =
+  (schema: ZodTypeAny) => (req: Request, res: Response, next: NextFunction) => {
+    const validatedData = schema.parse(req.body);
+
+    req.body = validatedData;
+
+    return next();
+  };
+
+export { verifyExistsuserMidle, VerifyDataLoginFromUser };

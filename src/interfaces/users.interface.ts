@@ -13,7 +13,10 @@ interface IUser extends IuserRequest {
 
 type IUserRemovePassword = Omit<IuserRequest, "password">;
 type IUserResult = QueryResult<IUserRemovePassword>;
+type IUserResultWithPassword = QueryResult<IUser>;
 type IUserResultNotPassword = QueryResult<IUserRemovePassword>;
+type TuserActulize = Omit<IuserRequest, "id,admin,active">;
+type TuserActulizeResult = QueryResult<TuserActulize>;
 
 export {
   IuserRequest,
@@ -21,4 +24,6 @@ export {
   IUserRemovePassword,
   IUserResult,
   IUserResultNotPassword,
+  TuserActulizeResult,
+  IUserResultWithPassword,
 };

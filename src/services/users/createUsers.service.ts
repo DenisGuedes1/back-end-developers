@@ -7,9 +7,11 @@ import {
   IUserResult,
   IuserRequest,
 } from "../../interfaces/users.interface";
+import { creatUserSchema } from "../../schemas/user.schema";
 const createUsersService = async (
   userData: IuserRequest
 ): Promise<IUserRemovePassword> => {
+  const validadeDateuser = creatUserSchema.parse(userData);
   const queryStringEmailunique: string = `
   SELECT 
     *
@@ -20,7 +22,7 @@ const createUsersService = async (
   `;
   const queryconfigEmailUnique: QueryConfig = {
     text: queryStringEmailunique,
-    values: [userData.email],
+    values: [validadeDateuser.email],
   };
 
   const queryResulUserEmailunique: QueryResult = await client.query(
@@ -30,6 +32,7 @@ const createUsersService = async (
   if (queryResulUserEmailunique.rowCount > 0) {
     throw new AppError("User already exists!", 409);
   }
+
   const queryString: string = format(
     `
   INSERT INTO 
@@ -37,8 +40,8 @@ const createUsersService = async (
   VALUES (%L)
   RETURNING id,name,email,admin, active;
   `,
-    Object.keys(userData),
-    Object.values(userData)
+    Object.keys(validadeDateuser),
+    Object.values(validadeDateuser)
   );
   const queryResult: IUserResult = await client.query(queryString);
   return queryResult.rows[0];
