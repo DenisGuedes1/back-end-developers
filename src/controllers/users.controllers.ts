@@ -4,6 +4,8 @@ import { IuserRequest } from "../interfaces/users.interface";
 import createUsersService from "../services/users/createUsers.service";
 import getAllUserService from "../services/users/getUserAll.service";
 
+import activeUserPut from "../services/users/active.user.service";
+import getUserSignin from "../services/users/getUserLogado.service";
 import patchFromUsers from "../services/users/patchusers.service";
 import softDeleteuserService from "../services/users/softDeleteUser.service";
 const createUsersController = async (
@@ -24,9 +26,6 @@ const softDeleteController = async (
   res: Response
 ): Promise<Response> => {
   const userId: number = parseInt(req.params.id);
-  // if (userId !== req.user.idUser && !req.user.typeUser) {
-  //   throw new AppError("VeriFy Permission", 403);
-  // }
   await softDeleteuserService(userId);
 
   return res.status(204).send();
@@ -37,25 +36,38 @@ const actulizeFromUsers = async (
 ): Promise<Response> => {
   const userId: number = parseInt(req.params.id);
   const data = req.body.name;
+
   const userEdit = await patchFromUsers(userId, data);
+  console.log(req.user.id);
 
   return res.status(200).json(userEdit);
 };
+const activeFromusers = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const userId: number = parseInt(req.params.id);
+  await activeUserPut(userId);
+  console.log("eu sou a request", req.user);
+  return res.status(200).json({
+    message: "User already active",
+  });
+};
+const getuserLogado = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const userId: number = req.user.id;
+  const userSignin = await getUserSignin(userId);
 
-// const editUserControllers = async (
-//   req: Request,
-//   res: Response
-// ): Promise<Response> => {
-//   ;
-//   const id: number = Number(req.params.id);
-
-//   if (id !== req.user.idUser && !req.user.typeUser) {
-//     throw new AppError("Insufficient Permission", 403);
-//   }
-// };
+  return res.status(200).json(userSignin);
+};
 export {
   createUsersController,
+  getuserLogado,
   getAll,
   softDeleteController,
   actulizeFromUsers,
+  activeFromusers,
 };
+

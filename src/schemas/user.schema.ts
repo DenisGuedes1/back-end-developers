@@ -20,25 +20,4 @@ const userSchemaEdit = z.object({
     .optional(),
 });
 
-// const IUserSchema = creatUserSchema.extend({
-//   id: z.number(),
-// });
-
-// const ResultUserSchema = z.object({
-//   id: z.number(),
-//   name: z.string().min(3).max(20),
-//   email: z.string().email(),
-//   password: z.string().transform((pass) => hashSync(pass)),
-//   admin: z.boolean(),
-//   active: z.boolean(),
-// });
-
-// const IUserSchemaNoPassword = IUserSchema.omit({
-//   password: true,
-// });
-
-// const IUserLoginSchema = z.object({
-//   email: z.string(),
-//   password: z.string(),
-// });
 export { creatUserSchema, userSchemaEdit };

@@ -16,12 +16,15 @@ const verifytokenValidmiddleware = async (
     if (error) {
       throw new AppError(error.message, 401);
     }
-
-    // request.user = {
-    //   id: parseInt(decoded.sub),
-    //   admin: decoded.boolean,
-    // };
+    request.user = decoded;
+    request.user = {
+      id: parseInt(decoded.sub),
+      admin: decoded.admin,
+      active: decoded.active,
+    };
+    console.log(request.user);
   });
+
   return next();
 };
 export { verifytokenValidmiddleware };

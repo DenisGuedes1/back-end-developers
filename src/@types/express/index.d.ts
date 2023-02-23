@@ -1,13 +1,12 @@
-import * as express from "express";
-
 declare global {
   namespace Express {
     interface Request {
       user: {
         id: number;
-        admin: string;
+        admin: boolean;
+        active: boolean;
       };
     }
   }
 }
-export { express };
+export {};

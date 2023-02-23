@@ -34,6 +34,7 @@ const VerifyDataLoginFromUser =
     const validatedData = schema.parse(req.body);
 
     req.body = validatedData;
+    req.user = validatedData;
 
     return next();
   };
