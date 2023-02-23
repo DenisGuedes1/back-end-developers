@@ -4,6 +4,7 @@ import { IuserRequest } from "../interfaces/users.interface";
 import createUsersService from "../services/users/createUsers.service";
 import getAllUserService from "../services/users/getUserAll.service";
 
+import patchFromUsers from "../services/users/patchusers.service";
 import softDeleteuserService from "../services/users/softDeleteUser.service";
 const createUsersController = async (
   req: Request,
@@ -34,29 +35,23 @@ const actulizeFromUsers = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  try {
-    const userId: number = parseInt(req.params.id);
-    // await patchFromUsers(userId, req.body);
-    return res.status(204).send();
-  } catch (error) {
-    console.error(error);
-    return res.sendStatus(500);
-  }
+  const userId: number = parseInt(req.params.id);
+  const data = req.body.name;
+  const userEdit = await patchFromUsers(userId, data);
+
+  return res.status(200).json(userEdit);
 };
 
 // const editUserControllers = async (
 //   req: Request,
 //   res: Response
 // ): Promise<Response> => {
-//   const data = creatUserSchemaEdit.parse(req.body);
+//   ;
 //   const id: number = Number(req.params.id);
 
 //   if (id !== req.user.idUser && !req.user.typeUser) {
 //     throw new AppError("Insufficient Permission", 403);
 //   }
-//   const userEdit = await editUsersService(id, data, req.user.typeUser);
-
-//   return res.status(200).json(userEdit);
 // };
 export {
   createUsersController,

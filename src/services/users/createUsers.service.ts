@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { QueryConfig, QueryResult } from "pg";
 import format from "pg-format";
 import { client } from "../../dataBase";

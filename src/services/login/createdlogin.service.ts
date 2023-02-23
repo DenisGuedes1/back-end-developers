@@ -34,7 +34,7 @@ const createLoginservice = async (
   }
   const token: string = jwt.sign(
     {
-      qualquerrcoisa: "alguma coisa",
+      qualquercoisa: "alguma coisa",
     },
     "KEY SECRET",
     {

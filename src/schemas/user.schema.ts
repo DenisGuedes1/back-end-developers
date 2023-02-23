@@ -11,15 +11,14 @@ const creatUserSchema = z.object({
   admin: z.boolean().optional(),
   active: z.boolean().optional(),
 });
-
-// const creatUserSchemaEdit = z.object({
-//   name: z.string().min(3).max(20).optional(),
-//   email: z.string().email().optional(),
-//   password: z
-//     .string()
-//     .transform((pass) => hashSync(pass))
-//     .optional(),
-// });
+const userSchemaEdit = z.object({
+  name: z.string().min(3).max(20).optional(),
+  email: z.string().email().optional(),
+  password: z
+    .string()
+    .transform((pass) => hashSync(pass))
+    .optional(),
+});
 
 // const IUserSchema = creatUserSchema.extend({
 //   id: z.number(),
@@ -42,4 +41,4 @@ const creatUserSchema = z.object({
 //   email: z.string(),
 //   password: z.string(),
 // });
-export { creatUserSchema };
+export { creatUserSchema, userSchemaEdit };

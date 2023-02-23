@@ -6,23 +6,23 @@ const patchFromUsers = async (userId: number, data: string) => {
     UPDATE
       users
     SET 
-      name = $1, email = $2, password = $3
+      name = $1
     WHERE 
-      id = $4;
-      RETURNING name,email,password;
+      id = $2
+      RETURNING "id","name", "admin", "active";
 
   `;
 
   const queryConfigActualizeuser: QueryConfig = {
     text: queryString,
-    values: [userId],
+    values: [data, userId],
   };
 
   const queryResult = await client.query(queryConfigActualizeuser);
   return queryResult.rows[0];
 };
 
-// export default patchFromUsers;
+export default patchFromUsers;
 
 // import format from "pg-format";
 // import {
