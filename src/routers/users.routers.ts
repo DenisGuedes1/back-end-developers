@@ -10,6 +10,7 @@ import {
 } from "../controllers/users.controllers";
 import {
   verifyActive,
+  verifyActiveSoftDelete,
   verifyIsAdmin,
   verifyUserPermissions,
 } from "../middlewares/verifyAdminIsUser.midle";
@@ -29,6 +30,7 @@ userRouters.delete(
   verifyExistsuserMidle,
   verifyIsAdmin,
   verifyUserPermissions,
+  verifyActiveSoftDelete,
   softDeleteController
 );
 userRouters.patch(

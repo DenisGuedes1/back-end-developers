@@ -5,7 +5,7 @@ import createUsersService from "../services/users/createUsers.service";
 import getAllUserService from "../services/users/getUserAll.service";
 
 import activeUserPut from "../services/users/active.user.service";
-import getUserSignin from "../services/users/getUserLogado.service";
+import getUserSignin from "../services/users/getUserLogged.Service";
 import patchFromUsers from "../services/users/patchusers.service";
 import softDeleteuserService from "../services/users/softDeleteUser.service";
 const createUsersController = async (
@@ -35,10 +35,9 @@ const actulizeFromUsers = async (
   res: Response
 ): Promise<Response> => {
   const userId: number = parseInt(req.params.id);
-  const data = req.body.name;
 
+  const data = req.body;
   const userEdit = await patchFromUsers(userId, data);
-  console.log(req.user.id);
 
   return res.status(200).json(userEdit);
 };
@@ -48,7 +47,6 @@ const activeFromusers = async (
 ): Promise<Response> => {
   const userId: number = parseInt(req.params.id);
   await activeUserPut(userId);
-  console.log("eu sou a request", req.user);
   return res.status(200).json({
     message: "User already active",
   });
@@ -70,4 +68,3 @@ export {
   actulizeFromUsers,
   activeFromusers,
 };
-

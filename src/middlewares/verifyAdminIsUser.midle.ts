@@ -42,5 +42,24 @@ const verifyActive = async (
     return next();
   }
 };
+const verifyActiveSoftDelete = async (
+  req: Request,
+  resp: Response,
+  next: NextFunction
+): Promise<Response | void> => {
+  const active = req.user.active;
+  console.log(active);
 
-export { verifyUserPermissions, verifyIsAdmin, verifyActive };
+  if (active === false) {
+    throw new AppError("User is already desactivated", 404);
+  } else {
+    return next();
+  }
+};
+
+export {
+  verifyUserPermissions,
+  verifyIsAdmin,
+  verifyActive,
+  verifyActiveSoftDelete,
+};
