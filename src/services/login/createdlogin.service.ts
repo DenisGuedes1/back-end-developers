@@ -34,7 +34,8 @@ const createLoginservice = async (
   }
   const token: string = jwt.sign(
     {
-      qualquercoisa: "alguma coisa",
+      admin: queryResult.rows[0].admin,
+      active: queryResult.rows[0].active,
     },
     "KEY SECRET",
     {
